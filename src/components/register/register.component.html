@@ -1,9 +1,12 @@
 <body>
-
   <div id="svg_wrap"></div>
 
   <section *ngFor="let section of sections; let i = index" [ngStyle]="{'transform': section.transform}" [hidden]="section.hidden">
-    <img src="../../assets/img/logoGameet.png" class="logo" alt="Logo de Gameet">
+    <div class="profile-pic">
+      <img [src]="imageUrl" alt="User Pic" id="profile-image1" height="200" (click)="triggerFileInput()">
+      <input #fileInput id="profile-image-upload" class="hidden" type="file" (change)="previewFile($event)">
+      <div style="color:#999;"></div>
+    </div>
     <ng-container [ngSwitch]="i">
       <ng-container *ngSwitchCase="0">
         <p class="bold-text">Información personal</p>
@@ -86,11 +89,6 @@
       </ng-container>
       <ng-container *ngSwitchCase="2">
         <p class="bold-text">Datos sobre la cuenta</p>
-        <div class="profile-pic">
-          <img #imagePreview alt="User Pic" src="https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png" id="profile-image1" height="200" (click)="triggerFileInput()">
-          <input #fileInput id="profile-image-upload" class="hidden" type="file" (change)="previewFile($event)">
-          <div style="color:#999;"></div>
-        </div>
         <input type="text" placeholder="Nombre de usuario" />
         <input type="password" placeholder="Contraseña" />
         <input type="repeatPassword" placeholder="Repite contraseña" />
@@ -125,5 +123,4 @@
     <button class="cssbuttons-io" id="next" (click)="next()" [class.disabled]="isNextDisabled()"><span>Next →</span></button>
     <button class="cssbuttons-io" id="submit" (click)="onSubmit()" [class.disabled]="isSubmitDisabled()"><span>Agree and send application</span></button>
   </section>
-
 </body>

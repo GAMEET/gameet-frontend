@@ -1,0 +1,17 @@
+<h1>Noticias y Próximos lanzamientos</h1>
+<main class='container'>
+  <div *ngFor="let game of games" class="card">
+    <h2>{{ game.name }}</h2>
+    <img *ngIf="game.background_image" [src]="game.background_image" alt="{{ game.name }}">
+    <h4 *ngIf="game.released">Fecha de lanzamiento: {{ game.released | date: 'MM/dd/yyyy' }}</h4>
+    <p *ngIf="game.platforms">Disponible en: {{ getPlatformNames(game) }}</p>
+    <p *ngIf="game.genres">Géneros: {{ getGenreNames(game) }}</p>
+    <video *ngIf="game.clip" controls width="100%" height="auto">
+      <source [src]="game.clip.clip" type="video/mp4">
+    </video>
+    <p *ngIf="!game.clip">Más información proximamente.</p>
+  </div>
+  <div *ngIf="games.length === 0" class="card" style="text-align: center; margin: 0 auto;">
+    Oops! The videogame database is currently unresponsive. Please check back at a later time.
+  </div>
+</main>

@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,12 +17,12 @@ export class RegisterComponent implements OnInit {
     { hidden: true, transform: 'translateX(100px)' },
     { hidden: true, transform: 'translateX(100px)' }
   ];
+  selectedFile: File | null = null;
+  imageUrl: string = 'https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png'; // Default image URL
 
   @ViewChild('fileInput') fileInput!: ElementRef;
-  @ViewChild('imagePreview') imagePreview!: ElementRef<HTMLImageElement>;
-  
 
-  constructor(private renderer: Renderer2) { }
+  constructor(private renderer: Renderer2, private router: Router) { }
 
   ngOnInit(): void {
     this.createSVG();
@@ -37,12 +38,11 @@ export class RegisterComponent implements OnInit {
     const file = input.files ? input.files[0] : null;
 
     if (file) {
+      this.selectedFile = file;
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
-        if (this.imagePreview.nativeElement) {
-          this.imagePreview.nativeElement.src = reader.result as string;
-        }
+        this.imageUrl = reader.result as string;
       }, false);
 
       reader.readAsDataURL(file);
@@ -133,7 +133,16 @@ export class RegisterComponent implements OnInit {
     return this.child < this.sections.length;
   }
 
+  goToLogin() {
+    this.router.navigate(['/']);
+  }
+
   onSubmit(): void {
-    console.log('Form submitted!');
+    if (this.selectedFile) {
+      console.log('Form submitted with file:', this.selectedFile);
+      // Aquí puedes añadir la lógica para enviar el formulario, incluyendo el archivo seleccionado.
+    } else {
+      console.log('Form submitted without file.');
+    }
   }
 }

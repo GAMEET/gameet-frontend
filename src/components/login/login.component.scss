@@ -1,9 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
+
 body {
   margin: 0;
   padding: 0;
   //background: url('./../../assets/img/fondo_login.png');
   background-size: cover;
-  font-family: sans-serif;
+  font-family: 'Roboto';
 }
 
 .background {
@@ -11,7 +13,7 @@ body {
   padding: 0;
   //background: url('./../../assets/img/fondo_login.png');
   background-size: cover;
-  font-family: sans-serif;
+  font-family: 'Roboto';
   transition: background-image 3s ease-in-out; /* Transición suave de 3 segundos */
 }
 
@@ -154,6 +156,7 @@ body {
 }
 
 .white-text {
+  padding-top: 1rem;
   color: white;  
   text-align: center;
 }
