@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer2, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -22,7 +23,18 @@ export class RegisterComponent implements OnInit {
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
-  constructor(private renderer: Renderer2, private router: Router) { }
+  formData: any = {
+    username: '',
+    password: '',
+    descripcion: '',
+    email: '',
+    imagenPerfil: '',
+    telefono: '',
+    caracteristicas: [],
+    horarioJuego: '' // Cambiar a un string para una sola selección
+  };
+
+  constructor(private renderer: Renderer2, private router: Router, private registerService: RegisterService) { }
 
   ngOnInit(): void {
     this.createSVG();
@@ -137,12 +149,45 @@ export class RegisterComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  onSubmit(): void {
-    if (this.selectedFile) {
-      console.log('Form submitted with file:', this.selectedFile);
-      // Aquí puedes añadir la lógica para enviar el formulario, incluyendo el archivo seleccionado.
+  updateCaracteristicas(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.checked) {
+      this.formData.caracteristicas.push(input.value);
     } else {
-      console.log('Form submitted without file.');
+      this.formData.caracteristicas = this.formData.caracteristicas.filter((item: string) => item !== input.value);
     }
+  }
+
+  updateHorarioJuego(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.formData.horarioJuego = input.value;
+  }
+
+  onSubmit(): void {
+    const formData = new FormData();
+    formData.append('username', this.formData.username);
+    formData.append('password', this.formData.password);
+    formData.append('descripcion', this.formData.descripcion);
+    formData.append('email', this.formData.email);
+    if (this.selectedFile) {
+      formData.append('imagenPerfil', this.selectedFile);
+    }
+    formData.append('telefono', this.formData.telefono);
+    formData.append('caracteristicas', this.formData.caracteristicas.join(',')); // Convertir a cadena de caracteres separada por comas
+    formData.append('horarioJuego', this.formData.horarioJuego); // Solo un valor
+
+    this.registerService.register(formData).subscribe(
+      success => {
+        if (success) {
+          console.log('Registro exitoso');
+          this.router.navigate(['/carrusel']);
+        } else {
+          console.error('Error en el registro');
+        }
+      },
+      error => {
+        console.error('Error en el registro', error);
+      }
+    );
   }
 }

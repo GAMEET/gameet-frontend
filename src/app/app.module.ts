@@ -18,6 +18,8 @@ import { ProfileComponent } from '../components/profile/profile.component';
 import { ChatComponent } from '../components/chat/chat.component';
 import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { TermsAndConditionsComponent } from '../components/terms-and-conditions/terms-and-conditions.component';
+import { AuthService } from '../services/auth.service';
+import { AuthGuard } from '../services/auth.guard'; 
 
 @NgModule({
   declarations: [
@@ -44,7 +46,7 @@ import { TermsAndConditionsComponent } from '../components/terms-and-conditions/
     MatStepperModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

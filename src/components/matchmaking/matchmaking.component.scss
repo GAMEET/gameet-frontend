@@ -1,0 +1,363 @@
+@import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  font-family: 'Roboto';
+}
+
+.background {
+  margin: 0;
+  padding: 0;
+  background: url('./../../assets/img/fondo_matchmaking2.png');
+  background-size: cover;
+  font-family: 'Roboto';
+}
+
+.card {
+  isolation: isolate;
+  max-width: 40rem; // Limita el ancho máximo para mantener un tamaño fijo
+  height: 40rem; // Altura fija para todos los artículos
+  padding: 32px;
+  border-radius: 24px;
+  color: var(--text-color);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  font: 100%/1.6 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; // Distribuye uniformemente el contenido
+}
+
+// Ajustes adicionales para asegurar un diseño consistente
+.container {
+  display: flex;
+  flex-wrap: wrap; // Asegura que el contenido se distribuya correctamente
+}
+
+.media-object {
+  --border-width: 1px;
+  --radius: 24px;
+
+  position: relative;
+  border-radius: var(--radius);
+  border: var(--border-width) solid transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.media-object::before {
+  content: " ";
+  position: absolute;
+  inset: calc(var(--border-width) * -1);
+  z-index: -1;
+  border: inherit;
+  border-radius: inherit;
+  background-image: conic-gradient(from var(--angle), #381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);
+  background-origin: border-box;
+  -webkit-mask: linear-gradient(black, black) content-box, linear-gradient(black, black);  
+  mask: linear-gradient(black, black), linear-gradient(black, black);
+  -webkit-mask-clip: content-box, border-box;  
+  mask-clip: content-box, border-box;
+  -webkit-mask-composite: xor;  
+  mask-composite: exclude;
+  animation: spin 3s linear infinite;
+}
+
+@supports not (background: paint(something)) {
+  .media-object::before {
+    background-image: conic-gradient(#381D6A 80%, #E0D1FF 88%, #E0D1FF 92%, #381D6A 100%);    
+  }
+}
+
+.media-object:hover::before {
+  animation-play-state: paused;
+}
+
+@property --angle {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0turn;
+}
+
+@keyframes spin {
+  to {
+    --angle: 1turn;
+  }
+}
+
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion) {
+  html {
+    scroll-behavior: none;
+  }
+}
+
+html *,
+html *::after,
+html *::before {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-size: cover;
+  background-position: center;
+  font: 100%/1.6 'Open Sans', sans-serif;
+}
+
+.card {
+  --text-color: #fff;
+  --text-color-2: #F3F8FA;
+  --bg-color: #0F0620;
+  --border-color: #381D6A;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 40rem;
+  padding: 32px;
+  border-radius: 24px;
+  color: var(--text-color);
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  font: 100%/1.6 'Open Sans', sans-serif;
+}
+
+.card__title {
+  margin-block: 0;
+  font-family: 'Sora', sans-serif;
+  font-size: 33px;
+  font-weight: 700;
+  line-height: 44px;
+}
+
+mark {
+  background: linear-gradient(270deg, #D42F4A 0%, #F82BBF 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: #0000;
+  -webkit-box-decoration-break: clone;
+}
+
+.markfin {
+  background: linear-gradient(270deg, #2fd4cc 0%, #2b2ef8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: #0000;
+  -webkit-box-decoration-break: clone;
+}
+
+.card__description {
+  color: var(--text-color-2);
+  line-height: 24px;
+  margin-block: 0;
+}
+
+.card__actions {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.card__button {
+  display: block;
+  padding: 16px 32px;
+  border: 1px solid var(--border-color);
+  border-radius: 24px;
+  text-decoration: none;
+  color: inherit;
+  flex-grow: 1;
+  text-align: center;
+  font-weight: 600;
+  line-height: 16px;
+}
+
+.media-object {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  gap: 24px;
+}
+
+.media-object__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  margin: 0 0 16px;
+  text-align: center;
+}
+
+.media-object__button {
+  margin:0.2rem;
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 28px;
+  background: linear-gradient(270deg, #E8488A 0%, #D5304B 100%);
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Sora', sans-serif;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+}
+
+.source-link {
+  position: fixed;
+  right: 32px;
+  bottom: 32px;  
+  width: fit-content;
+  box-sizing: border-box;
+  font-size: 16px;
+  display: flex;
+  padding: 0.75em 1em 0.75em 0.75em;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  border-radius: 128px;
+  background: linear-gradient(270deg, #AFE8EF 0%, #E7E1FA 100%);
+  color: #000;
+  text-align: center;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%;
+  text-decoration: none;
+}
+
+.source-link svg {
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 0.25em;
+}
+
+.source-link.source-link--second {
+  right: auto;
+  left: 32px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px 0px #c1c1c1;
+  cursor: pointer;
+  width: 100px;
+  height: 100px;
+  margin-left: 20px;
+  max-width: 100px;
+}
+
+.container {
+  display: flex;
+}
+
+.noche__title {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  margin: 0 0 16px;
+  text-align: center;
+  background: -webkit-linear-gradient(#920097, #5332e7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.btn-nocomun {
+  transition: all 0.3s ease-in-out;
+  font-family: "Dosis", sans-serif;
+}
+
+.btn-nocomun {
+  border-radius: 50px;
+  background-image: linear-gradient(135deg, #feb692 0%, #ea5455 100%);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  color: white;
+  width: 14rem;
+}
+
+.btn-custom {
+  border-radius: 50px;
+  background-image: linear-gradient(135deg, #92feb6 0%, #5463ea 100%);
+  //box-shadow: 0 20px 30px -6px rgba(238, 103, 97, 0.5);
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-size: 1rem;
+  color: white;
+}
+
+//Botones rechazar y aceptar
+
+.button-aceptar {
+  font-size: 18px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  will-change: box-shadow,transform;
+  background: radial-gradient( 100% 100% at 100% 0%, #89E5FF 0%, #5468FF 100% );
+  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+  padding: 0 2em;
+  border-radius: 0.3em;
+  color: #fff;
+  height: 2.6em;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  margin: 1rem;
+  width: 10rem;
+}
+
+.button-aceptar:hover {
+  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #3c4fe0;
+  transform: translateY(-0.1em);
+}
+
+.button-aceptar:active {
+  box-shadow: inset 0px 0.1em 0.6em #3c4fe0;
+  transform: translateY(0em);
+}
+
+.button-rechazar {
+  font-size: 18px;
+  display: inline-block;
+  outline: 0;
+  border: 0;
+  cursor: pointer;
+  will-change: box-shadow,transform;
+  background: radial-gradient( 100% 100% at 100% 0%, #ff89f9 0%, #ff5454 100% );
+  box-shadow: 0px 0.01em 0.01em rgb(45 35 66 / 40%), 0px 0.3em 0.7em -0.01em rgb(45 35 66 / 30%), inset 0px -0.01em 0px rgb(58 65 111 / 50%);
+  padding: 0 2em;
+  border-radius: 0.3em;
+  color: #fff;
+  height: 2.6em;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  margin: 1rem;
+  width: 10rem;
+}
+
+.button-rechazar:hover {
+  box-shadow: 0px 0.1em 0.2em rgb(45 35 66 / 40%), 0px 0.4em 0.7em -0.1em rgb(45 35 66 / 30%), inset 0px -0.1em 0px #e03c3c;
+  transform: translateY(-0.1em);
+}
+
+.button-rechazar:active {
+  box-shadow: inset 0px 0.1em 0.6em #e03c3c;
+  transform: translateY(0em);
+}

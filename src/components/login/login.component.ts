@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
-import { RegisterComponent } from '../register/register.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,6 +10,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string = '';
   images: string[] = [
     'http://www.hdwallpaper.nu/wp-content/uploads/2017/04/PLAYERUNKNOWNS-BATTLEGROUNDS-12937710.jpg',
     'https://www.hdwallpapers.in/walls/overwatch_4k-HD.jpg',
@@ -42,12 +42,18 @@ export class LoginComponent {
   }
 
   onLogin(): void {
-    if (this.authService.login(this.username, this.password)) {
-      alert('Login successful!');
-      // Redireccionar a otra página o simplemente indicar éxito
-    } else {
-      alert('Login failed!');
-    }
+    this.authService.login(this.username, this.password).subscribe(
+      success => {
+        if (success) {
+          this.router.navigate(['/carrusel']); // Redirige a la página de inicio u otra página
+        } else {
+          this.errorMessage = 'Usuario o contraseña incorrectos';
+        }
+      },
+      error => {
+        this.errorMessage = 'Usuario o contraseña incorrectos';
+      }
+    );
   }
 
   goToRegister() {

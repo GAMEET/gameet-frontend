@@ -1,1 +1,85 @@
-<p>matchmaking works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Card Example</title>
+</head>
+<body class="background">
+  <div id="carouselExample" class="carousel slide">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <article class="card">
+            <div class="media-object" style="margin-top: 12.5rem;">
+              <div class="media-object__content">
+                <h1 class="card__title text-center"><mark>Sigue deslizando para encontrar a jugadores afines a tus características y gustos</mark></h1>
+              </div>
+            </div>
+          </article>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+      </div>
+      <div *ngFor="let usuario of usuarios; let i = index" class="carousel-item">
+        <article class="card">
+          <div class="container">
+            <div class="col-9">
+              <h1 class="card__title"><mark>{{ usuario.username }}</mark></h1>
+              <p class="card__description">{{ usuario.descripcion }}</p>
+            </div>
+            <div class="col-1">
+              <img *ngIf="usuario.imagenPerfilUrl" [src]="usuario.imagenPerfilUrl" alt="Imagen de perfil" class="profile-pic">
+            </div>
+          </div>
+          <div class="media-object">
+            <div class="media-object__content">
+              <h2 class="media-object__title text-center">Características</h2>
+              <div class="container">
+                <div class="row ">
+                  <div class="col" *ngFor="let caracteristica of usuario.caracteristicas">
+                    <button type="button" class="btn-nocomun btn-primary"style="--bs-btn-font-size: .75rem; margin:0.15rem">{{ caracteristica }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="media-object">
+            <div class="media-object__content">
+              <h2 class="media-object__title text-center">Juegos</h2>
+              <div class="container">
+                <div class="row justify-content-center">
+                  <div class="col" *ngFor="let juego of usuario.juegos">
+                    <button type="button" class="btn-nocomun btn-primary"style="--bs-btn-font-size: .75rem; margin:0.15rem">{{ juego }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card__actions">
+            <h2 class="media-object__title text-center">Horario de juego: <h2 class="media-object__title text-center">{{usuario.horarioJuego}}</h2></h2>
+            <!-- <button class="btn-custom">{{usuario.horarioJuego}} <i class="bi bi-moon"></i></button> -->
+          </div>
+        </article>
+        <div class="text-center">
+          <button class="button-rechazar" (click)="dislikeUsuario(usuario.username)" data-bs-target="#carouselExample" data-bs-slide="next">Rechazar</button>
+          <button class="button-aceptar" (click)="likeUsuario(usuario.username)" data-bs-target="#carouselExample" data-bs-slide="next">Aceptar</button>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <article class="card">
+          <div class="media-object" style="margin-top: 12.5rem;">
+            <div class="media-object__content">
+              <h1 class="card__title text-center"><mark class="markfin">Vaya, no existen más usuarios afines a tus gustos y característica ¡Vuelve más tarde!</mark></h1>
+            </div>
+          </div>
+        </article>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
