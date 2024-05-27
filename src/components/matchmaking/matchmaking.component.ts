@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatchmakingService } from './../../services/matchmaking.service';
 import { UsuarioCompatible } from './../../models/usuario-compatible';
-import { InteractService } from './../../services/interact.service'
+import { InteractService } from './../../services/interact.service';
+import { ProfileService } from './../../services/profile.service';
 
 @Component({
   selector: 'app-matchmaking',
@@ -12,11 +13,25 @@ export class MatchmakingComponent implements OnInit {
   
   usuarios: UsuarioCompatible[] = [];
   token: string | null = localStorage.getItem('token'); 
+  caracteristicasAutenticado: string[] = [];
+  isLoading = true; // Variable de estado para controlar la carga
 
-  constructor(private matchmakingService: MatchmakingService, private interactService: InteractService) { }
-
+  constructor(
+    private matchmakingService: MatchmakingService, 
+    private interactService: InteractService,
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit(): void {
+    this.profileService.getProfile().subscribe(
+      (data) => {
+        this.caracteristicasAutenticado = data.caracteristicas;
+      },
+      (error) => {
+        console.error('Error al obtener el perfil del usuario autenticado', error);
+      }
+    );
+
     this.matchmakingService.getUsuariosCompatibles().subscribe(
       (data: UsuarioCompatible[]) => {
         this.usuarios = data.map(usuario => {
@@ -29,6 +44,7 @@ export class MatchmakingComponent implements OnInit {
           }
           return usuario;
         });
+        this.isLoading = false; // Lista cargada, actualizamos el estado
         console.log(this.usuarios);
       },
       (error) => {
@@ -46,7 +62,6 @@ export class MatchmakingComponent implements OnInit {
     }
     return [];
   }
-
 
   private base64ToBlob(base64: string, contentType: string = ''): Blob {
     const byteCharacters = atob(base64);
@@ -100,5 +115,28 @@ export class MatchmakingComponent implements OnInit {
   private removeUserFromList(username: string): void {
     this.usuarios = this.usuarios.filter(usuario => usuario.username !== username);
   }
+
+  getUniqueConsoles(consoles: string[]): string[] {
+    return Array.from(new Set(consoles));
+  }
   
+  getConsoleIcon(consola: string): string {
+    switch (consola) {
+      case 'SWITCH':
+        return 'bi bi-nintendo-switch';
+      case 'Xbox':
+        return 'bi bi-xbox';
+      case 'PlayStation':
+        return 'bi bi-playstation';
+      case 'PC':
+        return 'bi bi-pc';
+      default:
+        return '';
+    }
+  }
+
+    // Método para verificar si una característica es común con el usuario autenticado
+    isCommonCharacteristic(caracteristica: string): boolean {
+      return this.caracteristicasAutenticado.includes(caracteristica);
+    }
 }

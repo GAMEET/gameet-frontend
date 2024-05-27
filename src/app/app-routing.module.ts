@@ -8,6 +8,8 @@ import { ProfileComponent } from '../components/profile/profile.component';
 import { ChatComponent } from '../components/chat/chat.component';
 import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { TermsAndConditionsComponent } from '../components/terms-and-conditions/terms-and-conditions.component';
+import { VideoGamesProfileComponent } from '../components/video-games-profile/video-games-profile.component';
+import { VideoGamesAvailableComponent } from '../components/video-games-available/video-games-available.component';
 import { AuthGuard } from '../services/auth.guard'; 
 
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'carrusel', component: MatchmakingComponent },
   { path: 'perfil', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'chat', component: ChatComponent, canActivate: [AuthGuard] },
+  { path: 'videogamesProfile', component: VideoGamesProfileComponent, canActivate: [AuthGuard] },
+  { path: 'videogamesAvailable', component: VideoGamesAvailableComponent, canActivate: [AuthGuard] },
   { path: 'about-us', component: AboutUsComponent },
   { path: 'terms-and-conditions', component: TermsAndConditionsComponent }
 ];

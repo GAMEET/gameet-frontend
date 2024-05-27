@@ -18,7 +18,7 @@ body {
 .card {
   isolation: isolate;
   max-width: 40rem; // Limita el ancho máximo para mantener un tamaño fijo
-  height: 40rem; // Altura fija para todos los artículos
+  min-height: 40rem; // Altura fija para todos los artículos
   padding: 32px;
   border-radius: 24px;
   color: var(--text-color);
@@ -256,7 +256,7 @@ mark {
   cursor: pointer;
   width: 100px;
   height: 100px;
-  margin-left: 20px;
+  margin-left: 8rem;
   max-width: 100px;
 }
 
@@ -300,6 +300,7 @@ mark {
   border: none;
   font-size: 1rem;
   color: white;
+  width: 14rem;
 }
 
 //Botones rechazar y aceptar

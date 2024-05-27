@@ -29,8 +29,14 @@
             <img class="logo" src="./../../assets/img/logoGameet.png" height="80" />
           </a>
         </li>
-        <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link mx-2" routerLink="/games" routerLinkActive="active">Games</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Juegos
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" routerLink="/videogamesAvailable" routerLinkActive="active">Juegos disponibles</a></li>
+            <li><a class="dropdown-item" routerLink="/videogamesProfile" routerLinkActive="active">Tus juegos</a></li>
+          </ul>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
           <a class="nav-link mx-2" routerLink="/chat" routerLinkActive="active">Chat</a>

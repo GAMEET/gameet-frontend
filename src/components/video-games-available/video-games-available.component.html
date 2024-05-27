@@ -1,0 +1,43 @@
+<h1>Juegos disponibles</h1>
+<main class='container'>
+  <div *ngFor="let game of juegos; let i = index" class="card">
+    <h2>{{ game.titulo }}</h2>
+    <img *ngIf="game.imagenPortada" [src]="game.imagenPortada" alt="{{ game.titulo }}">
+    <p *ngIf="game.genero" style="padding-top: 1rem;"><b>Géneros:</b> {{ getGenreNames(game) }}</p>
+    <p *ngIf="game.consolas">Añade tu plataforma de juego junto a tu nivel</p>
+    <div *ngIf="game.consolas">
+      <div *ngFor="let consola of game.consolas; let j = index" class="container" style="margin-left: 4rem;">
+        <div class="row">
+          <ng-container [ngSwitch]="consola">
+            <div class="col-1">
+              <i *ngSwitchCase="'PC'" class="bi bi-pc-display"></i>
+              <i *ngSwitchCase="'PlayStation'" class="bi bi-playstation"></i>
+              <i *ngSwitchCase="'Xbox'" class="bi bi-xbox"></i>
+              <i *ngSwitchCase="'Nintendo'" class="bi bi-nintendo-switch"></i>
+            </div>
+            <div class="col-7">
+              <div class="rating">
+                <input (change)="updateRating(i, j, 5)" value="5" name="rating-{{ i }}-{{ j }}" id="star5-{{ i }}-{{ j }}" type="radio">
+                <label for="star5-{{ i }}-{{ j }}"></label>
+                <input (change)="updateRating(i, j, 4)" value="4" name="rating-{{ i }}-{{ j }}" id="star4-{{ i }}-{{ j }}" type="radio">
+                <label for="star4-{{ i }}-{{ j }}"></label>
+                <input (change)="updateRating(i, j, 3)" value="3" name="rating-{{ i }}-{{ j }}" id="star3-{{ i }}-{{ j }}" type="radio">
+                <label for="star3-{{ i }}-{{ j }}"></label>
+                <input (change)="updateRating(i, j, 2)" value="2" name="rating-{{ i }}-{{ j }}" id="star2-{{ i }}-{{ j }}" type="radio">
+                <label for="star2-{{ i }}-{{ j }}"></label>
+                <input (change)="updateRating(i, j, 1)" value="1" name="rating-{{ i }}-{{ j }}" id="star1-{{ i }}-{{ j }}" type="radio">
+                <label for="star1-{{ i }}-{{ j }}"></label>
+              </div>
+            </div>
+            <div class="col-2">
+              <button [disabled]="!isRatingSelected(i, j)" type="button" class="btn btn-primary btn-sm" (click)="onSubmit(i, j, game.id, consola)">Añadir</button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="juegos.length === 0" class="card" style="text-align: center; margin: 0 auto;">
+    Oops! The videogame database is currently unresponsive. Please check back at a later time.
+  </div>
+</main>

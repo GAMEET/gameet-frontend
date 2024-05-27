@@ -20,6 +20,9 @@ import { AboutUsComponent } from '../components/about-us/about-us.component';
 import { TermsAndConditionsComponent } from '../components/terms-and-conditions/terms-and-conditions.component';
 import { AuthService } from '../services/auth.service';
 import { AuthGuard } from '../services/auth.guard'; 
+import { SafeHtmlPipe } from './../pipes/safe-html.pipe';
+import { VideoGamesProfileComponent } from '../components/video-games-profile/video-games-profile.component';
+import { VideoGamesAvailableComponent } from '../components/video-games-available/video-games-available.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { AuthGuard } from '../services/auth.guard';
     ProfileComponent,
     ChatComponent,
     AboutUsComponent,
-    TermsAndConditionsComponent 
+    TermsAndConditionsComponent,
+    SafeHtmlPipe,
+    VideoGamesProfileComponent,
+    VideoGamesAvailableComponent
   ],
   imports: [
     BrowserModule,

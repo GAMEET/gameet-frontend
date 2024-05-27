@@ -1,0 +1,34 @@
+<body class="background" >
+  <h1>Juegos del usuario</h1>
+  <main class='container'>
+    <div *ngFor="let game of juegosUsuario; let i = index" class="card">
+      <h2>{{ game.titulo }}</h2>
+      <img *ngIf="game.imagenPortada" [src]="game.imagenPortada" alt="{{ game.titulo }}">
+      <p *ngIf="game.genero" style="padding-top: 1rem;"><b>Géneros:</b> {{ game.genero.join(', ') }}</p>
+      <div *ngFor="let consola of game.consolaNivel | keyvalue" class="container" style="margin-left: 4rem;">
+        <div class="row">
+          <div class="col-1">
+            <i *ngIf="consola.key === 'PC'" class="bi bi-pc-display"></i>
+            <i *ngIf="consola.key === 'PlayStation'" class="bi bi-playstation"></i>
+            <i *ngIf="consola.key === 'Xbox'" class="bi bi-xbox"></i>
+            <i *ngIf="consola.key === 'Nintendo'" class="bi bi-nintendo-switch"></i>
+          </div>
+          <div class="col-7">
+            <div class="rating">
+              <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let j = index">
+                <input [value]="star" [name]="'rating-' + i + '-' + consola.key" [id]="'star' + star + '-' + i + '-' + consola.key" type="radio" [checked]="consola.value === star" disabled>
+                <label [for]="'star' + star + '-' + i + '-' + consola.key"></label>
+              </ng-container>
+            </div>
+          </div>
+          <div class="col-2">
+            <button type="button" class="btn btn-danger btn-sm" (click)="eliminarJuego(game.id, consola.value, consola.key)">Eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="juegosUsuario.length === 0" class="card" style="text-align: center; margin: 0 auto;">
+      No se encontraron juegos del usuario.
+    </div>
+  </main>
+</body>

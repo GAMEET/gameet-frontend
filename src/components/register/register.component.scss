@@ -491,3 +491,28 @@ p{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+
+  .terms-container {
+    max-height: 400px; /* Ajusta esto según sea necesario */
+    overflow-y: auto;
+    padding-right: 15px; /* Espacio para el scrollbar */
+  }
+  
+  .bold-text {
+    font-weight: bold;
+  }
+  
+  h2 {
+    margin-top: 20px;
+    font-size: 1.5em;
+  }
+  
+  p, ul {
+    margin: 10px 0;
+  }
+  
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+  }

@@ -3,9 +3,13 @@
     <div class="row">
       <div class="col-md-3 border-right">
         <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-          <img class="rounded-circle mt-5" width="150px" src="./../../assets/img/R.png">
-          <span class="font-weight-bold">Edogaru</span>
-          <span class="text-black-50">edogaru@mail.com.my</span>
+          <div class="profile-pic">
+            <img [src]="usuario.imagenPerfilUrl" alt="User Pic" id="profile-image1" height="200" (click)="triggerFileInput()">
+            <input #fileInput id="profile-image-upload" class="hidden" type="file" (change)="previewFile($event)">
+            <div style="color:#999;"></div>
+          </div>          
+          <span class="font-weight-bold">{{usuario.username}}</span>
+          <span class="text-black-50">{{usuario.email}}</span>
         </div>
       </div>
       <div class="col-md-5 border-right">
@@ -14,8 +18,9 @@
             <h4 class="text-right">Modificar perfil</h4>
           </div>
           <div class="row mt-3">
-            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Introduce un nuevo email" value=""></div>
-            <div class="col-md-12"><label class="labels">Descripción</label><input type="text" class="form-control" placeholder="Introduce una nueva descripción" value=""></div>
+            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" placeholder="Introduce un nuevo email" [(ngModel)]="usuario.email"></div>
+            <div class="col-md-12"><label class="labels">Descripción</label><input type="text" class="form-control" placeholder="Introduce una nueva descripción" [(ngModel)]="usuario.descripcion"></div>
+            <div class="col-md-12"><label class="labels">Teléfono</label><input type="text" class="form-control" placeholder="Introduce un nuevo teléfono" [(ngModel)]="usuario.telefono"></div>
           </div>
           <div class="row mt-3">
             <p class="bold-text">¿Con qué etiquetas te identificas?</p>
@@ -23,68 +28,68 @@
               <div class="row">
                 <div class="col align-self-center">
                   <div id="checklist">
-                    <input value="CREATIVO" type="checkbox" id="01" >
+                    <input value="CREATIVO" type="checkbox" id="01" [checked]="isChecked('CREATIVO')" (change)="toggleCaracteristica('CREATIVO')">
                     <label for="01">Creativo</label>
-                    <input value="INTUITIVO" type="checkbox" id="02" >
+                    <input value="INTUITIVO" type="checkbox" id="02" [checked]="isChecked('INTUITIVO')" (change)="toggleCaracteristica('INTUITIVO')">
                     <label for="02">Intuitivo</label>
-                    <input value="METODICO" type="checkbox" id="03" >
+                    <input value="METODICO" type="checkbox" id="03" [checked]="isChecked('METODICO')" (change)="toggleCaracteristica('METODICO')">
                     <label for="03">Metódico</label>
-                    <input value="GEEK" type="checkbox" id="04" >
+                    <input value="GEEK" type="checkbox" id="04" [checked]="isChecked('GEEK')" (change)="toggleCaracteristica('GEEK')">
                     <label for="04">Geek</label>
-                    <input value="RELAJADO" type="checkbox" id="05" >
+                    <input value="RELAJADO" type="checkbox" id="05" [checked]="isChecked('RELAJADO')" (change)="toggleCaracteristica('RELAJADO')">
                     <label for="05">Relajado</label>
                   </div>
                 </div>
                 <div class="col align-self-center">
                   <div id="checklist">
-                    <input value="COLABORATIVO" type="checkbox" id="06" >
+                    <input value="COLABORATIVO" type="checkbox" id="06" [checked]="isChecked('COLABORATIVO')" (change)="toggleCaracteristica('COLABORATIVO')">
                     <label for="06">Colaborativo</label>
-                    <input value="INDEPENDIENTE" type="checkbox" id="07" >
+                    <input value="INDEPENDIENTE" type="checkbox" id="07" [checked]="isChecked('INDEPENDIENTE')" (change)="toggleCaracteristica('INDEPENDIENTE')">
                     <label for="07">Independiente</label>
-                    <input value="COMUNICATIVO" type="checkbox" id="08" >
+                    <input value="COMUNICATIVO" type="checkbox" id="08" [checked]="isChecked('COMUNICATIVO')" (change)="toggleCaracteristica('COMUNICATIVO')">
                     <label for="08">Comunicativo</label>
-                    <input value="EXPLORADOR" type="checkbox" id="09" >
+                    <input value="EXPLORADOR" type="checkbox" id="09" [checked]="isChecked('EXPLORADOR')" (change)="toggleCaracteristica('EXPLORADOR')">
                     <label for="09">Explorador</label>
-                    <input value="COMPETITIVO" type="checkbox" id="10" >
+                    <input value="COMPETITIVO" type="checkbox" id="10" [checked]="isChecked('COMPETITIVO')" (change)="toggleCaracteristica('COMPETITIVO')">
                     <label for="10">Competitivo</label>
                   </div>
                 </div>
                 <div class="col align-self-center">
                   <div id="checklist">
-                    <input value="ANALITICO" type="checkbox" id="11" >
+                    <input value="ANALITICO" type="checkbox" id="11" [checked]="isChecked('ANALITICO')" (change)="toggleCaracteristica('ANALITICO')">
                     <label for="11">Analítico</label>
-                    <input value="AVENTURERO" type="checkbox" id="12" >
+                    <input value="AVENTURERO" type="checkbox" id="12" [checked]="isChecked('AVENTURERO')" (change)="toggleCaracteristica('AVENTURERO')">
                     <label for="12">Aventurero</label>
-                    <input value="AUDAZ" type="checkbox" id="13" >
+                    <input value="AUDAZ" type="checkbox" id="13" [checked]="isChecked('AUDAZ')" (change)="toggleCaracteristica('AUDAZ')">
                     <label for="13">Audaz</label>
-                    <input value="ESTRATEGICO" type="checkbox" id="14" >
+                    <input value="ESTRATEGICO" type="checkbox" id="14" [checked]="isChecked('ESTRATEGICO')" (change)="toggleCaracteristica('ESTRATEGICO')">
                     <label for="14">Estratégico</label>
-                    <input value="PERFECCIONISTA" type="checkbox" id="15" >
+                    <input value="PERFECCIONISTA" type="checkbox" id="15" [checked]="isChecked('PERFECCIONISTA')" (change)="toggleCaracteristica('PERFECCIONISTA')">
                     <label for="15">Perfeccionista</label>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+          </div>  
           <div class="row mt-3">
             <p class="bold-text">Elige tu horario de juego</p>
             <div class="radio-button-container">
               <div class="radio-button">
-                <input type="radio" class="radio-button__input" id="radio1" name="horarioJuego" value="Mañana" >
+                <input type="radio" class="radio-button__input" id="radio1" name="horarioJuego" value="Mañana" [checked]="usuario.horarioJuego === 'MAÑANA'" (change)="usuario.horarioJuego = 'MAÑANA'" >
                 <label class="radio-button__label" for="radio1">
                   <span class="radio-button__custom"></span>
                   Mañana
                 </label>
               </div>
               <div class="radio-button">
-                <input type="radio" class="radio-button__input" id="radio2" name="horarioJuego" value="Tarde" >
+                <input type="radio" class="radio-button__input" id="radio2" name="horarioJuego" value="Tarde" [checked]="usuario.horarioJuego === 'TARDE'" (change)="usuario.horarioJuego = 'TARDE'">
                 <label class="radio-button__label" for="radio2">
                   <span class="radio-button__custom"></span>
                   Tarde
                 </label>
               </div>
               <div class="radio-button">
-                <input type="radio" class="radio-button__input" id="radio3" name="horarioJuego" value="Noche" >
+                <input type="radio" class="radio-button__input" id="radio3" name="horarioJuego" value="Noche" [checked]="usuario.horarioJuego === 'NOCHE'" (change)="usuario.horarioJuego = 'NOCHE'">
                 <label class="radio-button__label" for="radio3">
                   <span class="radio-button__custom"></span>
                   Noche
@@ -92,7 +97,7 @@
               </div>
             </div>
           </div>
-          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+          <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button" (click)="modificarPerfil()">Modificar perfil</button></div>
         </div>
       </div>
       <div class="col-md-4">
@@ -101,9 +106,21 @@
             <h4 class="text-right">Modificar contraseña</h4>
           </div>
           <div class="col-md-12">
-            <label class="labels">Nueva contraseña</label><input type="text" class="form-control" placeholder="Nueva contraseña" value="">
-            <label class="labels">Confirma contraseña</label><input type="text" class="form-control" placeholder="Confirma la nueva contraseña" value="">
+            <label class="labels">Nueva contraseña</label><input type="password" class="form-control" placeholder="Nueva contraseña" [(ngModel)]="usuario.password">
+            <label class="labels">Confirma contraseña</label><input type="password" class="form-control" placeholder="Confirma la nueva contraseña" value="">
           </div> 
+          <div class="row mt-3" *ngIf="usuario.activo">
+            <p class="bold-text">¿Deseas desactivar tu perfil para no aparecer en el matchmaking?</p>
+            <button type="button" class="btn btn-warning" (click)="desactivarPerfil()">Desactivar</button>
+          </div>
+          <div class="row mt-3" *ngIf="!usuario.activo">
+            <p class="bold-text">¿Deseas activar tu perfil para aparecer en el matchmaking?</p>
+            <button type="button" class="btn btn-info" (click)="activarPerfil()">Activar</button>
+          </div>
+          <div class="row mt-3">
+            <p class="bold-text">¿Deseas eliminar tu cuenta?</p>
+            <button type="button" class="btn btn-danger" (click)="eliminarPerfil()">Eliminar</button>
+          </div>  
         </div>
       </div>
     </div>

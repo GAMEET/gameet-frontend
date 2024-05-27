@@ -65,21 +65,21 @@
         <p class="bold-text">Elige tu horario de juego</p>
         <div class="radio-button-container">
           <div class="radio-button">
-            <input type="radio" class="radio-button__input" id="radio1" name="horarioJuego" value="Mañana" (change)="updateHorarioJuego($event)">
+            <input type="radio" class="radio-button__input" id="radio1" name="horarioJuego" value="MAÑANA" (change)="updateHorarioJuego($event)">
             <label class="radio-button__label" for="radio1">
               <span class="radio-button__custom"></span>
               Mañana
             </label>
           </div>
           <div class="radio-button">
-            <input type="radio" class="radio-button__input" id="radio2" name="horarioJuego" value="Tarde" (change)="updateHorarioJuego($event)">
+            <input type="radio" class="radio-button__input" id="radio2" name="horarioJuego" value="TARDE" (change)="updateHorarioJuego($event)">
             <label class="radio-button__label" for="radio2">
               <span class="radio-button__custom"></span>
               Tarde
             </label>
           </div>
           <div class="radio-button">
-            <input type="radio" class="radio-button__input" id="radio3" name="horarioJuego" value="Noche" (change)="updateHorarioJuego($event)">
+            <input type="radio" class="radio-button__input" id="radio3" name="horarioJuego" value="NOCHE" (change)="updateHorarioJuego($event)">
             <label class="radio-button__label" for="radio3">
               <span class="radio-button__custom"></span>
               Noche
@@ -116,8 +116,60 @@
       </ng-container>
       <ng-container *ngSwitchCase="4">
         <p class="bold-text">Términos y condiciones</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-      </ng-container>
+        <div class="terms-container">
+        
+          <h2>1. Introducción</h2>
+          <p>Bienvenido a GAMEET, una red social diseñada para ayudar a los gamers a encontrar compañeros de videojuegos en línea. Al utilizar nuestros servicios, usted acepta cumplir y estar sujeto a los siguientes términos y condiciones. Por favor, léalos cuidadosamente.</p>
+        
+          <h2>2. Aceptación de los Términos</h2>
+          <p>Al acceder o usar cualquier parte de la plataforma GAMEET, usted acepta estar sujeto a estos términos y condiciones. Si no está de acuerdo con todos los términos y condiciones de este acuerdo, entonces no puede acceder a la plataforma ni utilizar ninguno de sus servicios.</p>
+        
+          <h2>3. Información Personal</h2>
+          <p>Para utilizar nuestros servicios, es posible que le solicitemos que proporcione ciertos datos personales, incluyendo, pero no limitado a:</p>
+          <ul>
+            <li>Imagen de perfil</li>
+            <li>Nombre de usuario</li>
+            <li>Email</li>
+            <li>Número de teléfono</li>
+            <li>Descripción personal</li>
+            <li>Características personales (como intereses y preferencias de juego)</li>
+            <li>Horario de juego preferido</li>
+          </ul>
+        
+          <h2>4. Uso de la Información Personal</h2>
+          <p>La información personal que recopilamos se utilizará para los siguientes propósitos:</p>
+          <ul>
+            <li>Crear y gestionar su cuenta en GAMEET.</li>
+            <li>Facilitar la conexión con otros usuarios que compartan intereses similares en videojuegos.</li>
+            <li>Personalizar su experiencia en la plataforma.</li>
+            <li>Enviar comunicaciones relacionadas con el servicio, actualizaciones y promociones.</li>
+          </ul>
+        
+          <h2>5. Privacidad y Seguridad</h2>
+          <p>En GAMEET, nos comprometemos a proteger su privacidad y sus datos personales. Implementamos medidas de seguridad adecuadas para proteger su información contra accesos no autorizados, alteraciones, divulgaciones o destrucción.</p>
+        
+          <h2>6. Conducta del Usuario</h2>
+          <p>Al utilizar GAMEET, usted se compromete a:</p>
+          <ul>
+            <li>No utilizar la plataforma para ningún propósito ilegal o no autorizado.</li>
+            <li>No acosar, abusar, insultar, dañar, difamar, calumniar, desprestigiar, intimidar o discriminar a otros usuarios.</li>
+            <li>No cargar o transmitir virus o cualquier tipo de código malicioso que afecte la funcionalidad o el funcionamiento de GAMEET.</li>
+            <li>Respetar los derechos de privacidad y propiedad de otros usuarios.</li>
+          </ul>
+        
+          <h2>7. Contenido Generado por el Usuario</h2>
+          <p>Usted es responsable de todo el contenido que publique en GAMEET. Nos reservamos el derecho de eliminar cualquier contenido que, a nuestra discreción, consideremos inapropiado, ofensivo o que viole estos términos y condiciones.</p>
+        
+          <h2>8. Terminación del Servicio</h2>
+          <p>Podemos, a nuestra sola discreción, suspender o terminar su cuenta y el acceso a GAMEET, sin previo aviso, por cualquier violación de estos términos y condiciones.</p>
+        
+          <h2>9. Modificaciones a los Términos y Condiciones</h2>
+          <p>Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Le notificaremos de cualquier cambio a través de la plataforma o por correo electrónico. Su uso continuado de GAMEET después de dichos cambios constituye su aceptación de los nuevos términos y condiciones.</p>
+        
+          <h2>10. Contacto</h2>
+          <p>Si tiene alguna pregunta o inquietud acerca de estos términos y condiciones, por favor, póngase en contacto con nosotros a través de [email de contacto].</p>
+        </div>
+      </ng-container>      
     </ng-container>
     <button class="cssbuttons-io" id="prev" (click)="prev()" [class.disabled]="isPrevDisabled()"><span>← Previous</span></button>
     <button class="cssbuttons-io" id="next" (click)="next()" [class.disabled]="isNextDisabled()"><span>Next →</span></button>
