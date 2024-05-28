@@ -64,7 +64,7 @@ export class ChatService {
 
     const channel = this.chatClientService.chatClient.channel('messaging', {
       members: [userId, username],
-      name: `Chat de ${userId} y ${username}`
+      //name: 'Chat de {userId} y {username}'
     });
 
     await channel.watch();

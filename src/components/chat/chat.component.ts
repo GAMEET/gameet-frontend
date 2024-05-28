@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ChatService } from './../../services/chat.service';
 import { Channel } from 'stream-chat';
 import { ChatClientService, ChannelService, DefaultStreamChatGenerics } from 'stream-chat-angular';
@@ -11,12 +12,35 @@ export class ChatComponent implements OnInit {
   channels: Channel<DefaultStreamChatGenerics>[] = [];
   activeChannel: Channel<DefaultStreamChatGenerics> | undefined;
 
-  constructor(private chatService: ChatService, private channelService : ChannelService) {}
+  constructor(
+    private chatService: ChatService,
+    private channelService: ChannelService,
+    private route: ActivatedRoute
+  ) {}
 
   async ngOnInit() {
+    const hasReloaded = localStorage.getItem('hasReloaded');
+
+    if (!hasReloaded) {
+      localStorage.setItem('hasReloaded', 'true');
+      window.location.reload();
+    } else {
+      this.route.params.subscribe(async params => {
+        await this.initializeChat();
+      });
+    }
+  }
+
+  async initializeChat() {
     try {
       await this.chatService.connectUser();
+      console.log("Usuario conectado");
       this.channels = await this.chatService.getChannels();
+      if (this.channels.length > 0) {
+        this.channels.forEach(channel => {
+          this.setActiveChannel(channel);
+        });
+      }
       console.log('Channels loaded:', this.channels);
     } catch (error) {
       console.error('Error connecting user or loading channels:', error);
