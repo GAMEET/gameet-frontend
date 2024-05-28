@@ -3,6 +3,7 @@ import { MatchmakingService } from './../../services/matchmaking.service';
 import { UsuarioCompatible } from './../../models/usuario-compatible';
 import { InteractService } from './../../services/interact.service';
 import { ProfileService } from './../../services/profile.service';
+import { ChatService } from './../../services/chat.service';
 
 @Component({
   selector: 'app-matchmaking',
@@ -10,7 +11,7 @@ import { ProfileService } from './../../services/profile.service';
   styleUrls: ['./matchmaking.component.scss']
 })
 export class MatchmakingComponent implements OnInit {
-  
+
   usuarios: UsuarioCompatible[] = [];
   token: string | null = localStorage.getItem('token'); 
   caracteristicasAutenticado: string[] = [];
@@ -19,13 +20,16 @@ export class MatchmakingComponent implements OnInit {
   constructor(
     private matchmakingService: MatchmakingService, 
     private interactService: InteractService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private chatService: ChatService // Inyecta el servicio de chat
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.profileService.getProfile().subscribe(
-      (data) => {
+      async (data) => {
         this.caracteristicasAutenticado = data.caracteristicas;
+        // Conectar el usuario al cliente de chat
+        await this.chatService.connectUser();
       },
       (error) => {
         console.error('Error al obtener el perfil del usuario autenticado', error);
@@ -78,12 +82,15 @@ export class MatchmakingComponent implements OnInit {
   }
 
   // Método para manejar el like
-  likeUsuario(username: string): void {
+  async likeUsuario(username: string): Promise<void> {
     if (this.token) {
       this.interactService.interactuar(username, true, this.token).subscribe(
-        () => {
+        async (matched) => {
           console.log(`Usuario ${username} liked`);
           this.removeUserFromList(username);
+          if (matched) {
+            await this.chatService.createChannel(username); // Crea el canal con el usuario del matchmaking
+          }
         },
         (error) => {
           console.error('Error en la interacción con el usuario:', error);
@@ -135,8 +142,8 @@ export class MatchmakingComponent implements OnInit {
     }
   }
 
-    // Método para verificar si una característica es común con el usuario autenticado
-    isCommonCharacteristic(caracteristica: string): boolean {
-      return this.caracteristicasAutenticado.includes(caracteristica);
-    }
+  // Método para verificar si una característica es común con el usuario autenticado
+  isCommonCharacteristic(caracteristica: string): boolean {
+    return this.caracteristicasAutenticado.includes(caracteristica);
+  }
 }

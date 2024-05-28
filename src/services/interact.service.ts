@@ -11,7 +11,7 @@ export class InteractService {
 
   constructor(private http: HttpClient) { }
 
-  interactuar(username: string, like: boolean, token: string): Observable<void> {
+  interactuar(username: string, like: boolean, token: string): Observable<boolean> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -22,6 +22,6 @@ export class InteractService {
       like: like
     };
 
-    return this.http.post<void>(this.apiUrl, body, { headers });
+    return this.http.post<boolean>(this.apiUrl, body, { headers });
   }
 }
