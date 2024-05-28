@@ -13,23 +13,17 @@
           <a class="nav-link mx-2" routerLink="/carrusel" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" aria-current="page">Carrusel</a>
         </li>
         <li class="nav-item" *ngIf="authService.isLoggedIn()">
-          <a class="nav-link mx-2" routerLink="/videogameNews" routerLinkActive="active">News</a>
+          <a class="nav-link mx-2" routerLink="/videogameNews" routerLinkActive="active">Noticias</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Company
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" routerLink="/about-us" routerLinkActive="active">Sobre nosotros</a></li>
-            <li><a class="dropdown-item" routerLink="/terms-and-conditions" routerLinkActive="active">Términos y condiciones</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link mx-2" routerLink="/about-us" routerLinkActive="active">Sobre nosotros</a>
         </li>
         <li class="nav-item d-none d-lg-block">
           <a class="nav-link mx-2" href="#">
             <img class="logo" src="./../../assets/img/logoGameet.png" height="80" />
           </a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" *ngIf="authService.isLoggedIn()">
           <a class="nav-link mx-2 dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Juegos
           </a>

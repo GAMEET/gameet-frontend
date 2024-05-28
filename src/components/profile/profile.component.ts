@@ -23,7 +23,8 @@ export class ProfileComponent implements OnInit {
     activo: true
   };
   selectedFile: File | null = null;
-  imageUrl: string = 'https://d30y9cdsu7xlg0.cloudfront.net/png/138926-200.png'; // Default image URL
+  imageUrl: string | null = null;
+  confirmPassword: string = '';
 
   @ViewChild('fileInput') fileInput!: ElementRef;
 
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
         const contentType = 'image/jpeg'; // Ajusta el tipo de contenido según el tipo de imagen
         const blob = this.base64ToBlob(this.usuario.imagenPerfil, contentType);
         this.usuario.imagenPerfilUrl = this.createImageFromBlob(blob);
+        this.imageUrl = this.usuario.imagenPerfilUrl;
       }
     });
   }
@@ -80,7 +82,10 @@ export class ProfileComponent implements OnInit {
       const reader = new FileReader();
 
       reader.addEventListener('load', () => {
+        // Remove the prefix 'data:image/png;base64,' or similar
+        const base64String = (reader.result as string).replace(/^data:image\/[a-z]+;base64,/, '');
         this.imageUrl = reader.result as string;
+        this.usuario.imagenPerfil = base64String; // Save the base64 string without prefix
       }, false);
 
       reader.readAsDataURL(file);
@@ -88,6 +93,21 @@ export class ProfileComponent implements OnInit {
   }
 
   modificarPerfil(): void {
+    if (this.selectedFile) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        // Remove the prefix 'data:image/png;base64,' or similar
+        const base64String = (reader.result as string).replace(/^data:image\/[a-z]+;base64,/, '');
+        this.usuario.imagenPerfil = base64String;
+        this.saveProfile();
+      };
+      reader.readAsDataURL(this.selectedFile);
+    } else {
+      this.saveProfile();
+    }
+  }
+
+  saveProfile(): void {
     this.profileService.updateProfile(this.usuario).subscribe({
       next: (response) => {
         // Aquí podrías actualizar el estado de la aplicación o mostrar un mensaje de éxito
@@ -97,6 +117,10 @@ export class ProfileComponent implements OnInit {
         // Aquí podrías manejar errores, como mostrar un mensaje de error
       }
     });
+  }
+
+  updateHorarioJuego(horario: string): void {
+    this.usuario.horarioJuego = horario;
   }
 
   activarPerfil(): void {
