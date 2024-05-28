@@ -16,6 +16,7 @@ export class MatchmakingComponent implements OnInit {
   token: string | null = localStorage.getItem('token'); 
   caracteristicasAutenticado: string[] = [];
   isLoading = true; // Variable de estado para controlar la carga
+  matchAlert: { show: boolean, username: string } = { show: false, username: '' }; // Estado para el alert
 
   constructor(
     private matchmakingService: MatchmakingService, 
@@ -89,6 +90,10 @@ export class MatchmakingComponent implements OnInit {
           console.log(`Usuario ${username} liked`);
           this.removeUserFromList(username);
           if (matched) {
+            this.matchAlert = { show: true, username: username }; // Mostrar el alert
+            setTimeout(() => {
+              this.matchAlert.show = false; // Ocultar el alert después de 3 segundos
+            }, 3000);
             await this.chatService.createChannel(username); // Crea el canal con el usuario del matchmaking
           }
         },

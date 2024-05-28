@@ -1,4 +1,11 @@
 <h1>Juegos disponibles</h1>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col align-self-center" *ngIf="alert.show text-center" class="alert" [ngClass]="alert.color" role="alert">
+      {{ alert.message }}
+    </div>
+  </div>
+</div>
 <main class='container'>
   <div *ngFor="let game of juegos; let i = index" class="card">
     <h2>{{ game.titulo }}</h2>

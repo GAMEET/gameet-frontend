@@ -12,6 +12,7 @@ export class VideoGamesAvailableComponent implements OnInit {
   juegos: Juego[] = [];
   juegosUsuario: JuegoUsuario[] = [];
   ratings: { [gameIndex: number]: { [consoleIndex: number]: number } } = {};
+  alert = { show: false, message: '', color: '' }; // Estado para el alert
 
   constructor(private videoGamesProfileService: VideoGamesProfileService) { }
 
@@ -70,6 +71,7 @@ export class VideoGamesAvailableComponent implements OnInit {
         this.videoGamesProfileService.seleccionarJuego(juegoUsuario, token).subscribe(
           () => {
             console.log('Juego añadido con éxito');
+            this.showAlert('Juego añadido con éxito', 'alert-primary');
           },
           (error) => {
             console.error('Error al añadir el juego', error);
@@ -79,5 +81,12 @@ export class VideoGamesAvailableComponent implements OnInit {
         console.error('No token found');
       }
     }
+  }
+
+  showAlert(message: string, color: string): void {
+    this.alert = { show: true, message: message, color: color };
+    setTimeout(() => {
+      this.alert.show = false;
+    }, 3000);
   }
 }
