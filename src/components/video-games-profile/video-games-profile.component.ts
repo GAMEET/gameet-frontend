@@ -54,12 +54,4 @@ export class VideoGamesProfileComponent implements OnInit {
       console.error('No token found');
     }
   }
-
-  getStars(nivel: number): number[] {
-    return Array(nivel).fill(0);
-  }
-
-  getEmptyStars(nivel: number): number[] {
-    return Array(5 - nivel).fill(0);
-  }
 }

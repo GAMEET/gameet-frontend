@@ -26,6 +26,9 @@ export class ProfileComponent implements OnInit {
   imageUrl: string | null = null;
   confirmPassword: string = '';
 
+  alertMessage: string | null = null;
+  alertType: 'success' | 'error' = 'success';
+
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(private profileService: ProfileService, private router: Router) { }
@@ -110,13 +113,20 @@ export class ProfileComponent implements OnInit {
   saveProfile(): void {
     this.profileService.updateProfile(this.usuario).subscribe({
       next: (response) => {
-        // Aquí podrías actualizar el estado de la aplicación o mostrar un mensaje de éxito
+        this.showAlert('Perfil modificado con éxito', 'success');
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Error al modificar el perfil', error);
-        // Aquí podrías manejar errores, como mostrar un mensaje de error
+        this.showAlert('Error al modificar el perfil', 'error');
       }
     });
+  }
+
+  showAlert(message: string, type: 'success' | 'error'): void {
+    this.alertMessage = message;
+    this.alertType = type;
+    setTimeout(() => {
+      this.alertMessage = null;
+    }, 5000); // Ocultar la alerta después de 5 segundos
   }
 
   updateHorarioJuego(horario: string): void {
@@ -127,10 +137,10 @@ export class ProfileComponent implements OnInit {
     this.profileService.activarUsuario().subscribe({
       next: (response) => {
         this.usuario.activo = true;
-        // Actualización del estado del usuario sin recargar la página
+        this.showAlert('Perfil activado con éxito', 'success');
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Error al activar el perfil', error);
+        this.showAlert('Error al activar el perfil', 'error');
       }
     });
   }
@@ -139,10 +149,10 @@ export class ProfileComponent implements OnInit {
     this.profileService.desactivarUsuario().subscribe({
       next: (response) => {
         this.usuario.activo = false;
-        // Actualización del estado del usuario sin recargar la página
+        this.showAlert('Perfil desactivado con éxito', 'success');
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Error al desactivar el perfil', error);
+        this.showAlert('Error al desactivar el perfil', 'error');
       }
     });
   }
@@ -151,9 +161,10 @@ export class ProfileComponent implements OnInit {
     this.profileService.eliminarUsuario().subscribe({
       next: (response) => {
         this.router.navigate(['/login']);
+        this.showAlert('Perfil eliminado con éxito', 'success');
       },
       error: (error: HttpErrorResponse) => {
-        console.error('Error al eliminar el perfil', error);
+        this.showAlert('Error al eliminar el perfil', 'error');
       }
     });
   }

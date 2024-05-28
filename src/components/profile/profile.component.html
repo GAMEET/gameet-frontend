@@ -14,6 +14,11 @@
       </div>
       <div class="col-md-5 border-right">
         <div class="p-3 py-5">
+          <!-- Alert container -->
+          <div *ngIf="alertMessage" class="alert" [ngClass]="{'alert-success': alertType === 'success', 'alert-danger': alertType === 'error'}" role="alert">
+            {{ alertMessage }}
+          </div>
+          
           <div class="d-flex justify-content-between align-items-center mb-3">
             <h4 class="text-right">Modificar perfil</h4>
           </div>

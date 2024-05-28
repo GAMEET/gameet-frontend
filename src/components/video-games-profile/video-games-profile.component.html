@@ -1,4 +1,4 @@
-<body class="background" >
+<body class="background">
   <h1>Juegos del usuario</h1>
   <main class='container'>
     <div *ngFor="let game of juegosUsuario; let i = index" class="card">
@@ -16,8 +16,11 @@
           <div class="col-7">
             <div class="rating">
               <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let j = index">
-                <input [value]="star" [name]="'rating-' + i + '-' + consola.key" [id]="'star' + star + '-' + i + '-' + consola.key" type="radio" [checked]="consola.value === star" disabled>
-                <label [for]="'star' + star + '-' + i + '-' + consola.key"></label>
+                <i 
+                  class="bi" 
+                  [ngClass]="{'bi-star-fill': star <= consola.value, 'bi-star': star > consola.value}" 
+                  [ngStyle]="{'color': star <= consola.value ? '#6f00ff' : '#ccc', 'font-size': '20px'}">
+                </i>
               </ng-container>
             </div>
           </div>
