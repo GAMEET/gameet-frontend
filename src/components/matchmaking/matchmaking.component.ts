@@ -93,7 +93,7 @@ export class MatchmakingComponent implements OnInit {
             this.matchAlert = { show: true, username: username }; // Mostrar el alert
             setTimeout(() => {
               this.matchAlert.show = false; // Ocultar el alert después de 3 segundos
-            }, 3000);
+            }, 10000);
             await this.chatService.createChannel(username); // Crea el canal con el usuario del matchmaking
           }
         },
